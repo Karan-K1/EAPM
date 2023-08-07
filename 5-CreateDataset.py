@@ -66,15 +66,15 @@ if not os.path.exists(f'data/5-Final/{number}-{revision}'):
 
 # Find the relevant flight plans
 Flight_Plan     = pd.read_csv(Flight_Plan_loc)
-Flight_Record   = pd.read_csv(f"data/flight_record/flight_record_{number}.csv", index_col='file_number')
-Flight_Parameter= pd.read_csv(f"data/flight_parameters/flight_parameters_{number}.csv")
+Flight_Record   = pd.read_csv(f"data/flight_record/FR_{number}.csv", index_col='file_number')
+Flight_Parameter= pd.read_csv(f"data/flight_parameters/FP_{number}.csv")
 
 FP_filtered_excess = Flight_Plan[0:0]
 FP_filtered = Flight_Plan[0:0]
 for index, row in Flight_Parameter.iterrows():
-    FID         = row['flightid'].replace('F','')   # Good
-    datedepart  = row['datedepart']                 # Good
-    codes       = Flight_Record.loc[int(FID)]       # Good
+    FID         = row['flightid'].replace('F','')   
+    datedepart  = row['datedepart']                 
+    codes       = Flight_Record.loc[int(FID)]       
     callsign    = codes['callsign']         
     SSR         = codes['icao']
     

@@ -2,9 +2,7 @@ from pyopensky import EHSHelper
 from time import mktime
 import datetime
 import pandas as pd
-# import numpy as np
 import os
-
 
 def correlate_flights(number, readpickle:bool = False):
     if readpickle == True:

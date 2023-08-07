@@ -131,12 +131,15 @@ A320                   = b3.BADA3(AC = A320_data)
 A320.flightEnvelope    = b3.FlightEnvelope(A320_data)
 A320.ARPM              = b3.ARPM(A320_data)
 
+if not os.path.exists('data/flight_parameters'):
+    os.makedirs('data/flight_parameters')
+
 # Inputs
-# NOTE a revision number is included below, thus 
+# NOTE a revision number is included below in case 
 num = 4         # <--- Update the identification number
 revision = 0    # <--- Update the revision number 
 loc_flight = f"data/3-Flights+Met/Met_{num}/"
-readpickle = False # <--- Update the revision number
+readpickle = False # <--- Update whether to read a pickle file
 
 print("--Starting parameter calculation--")
 

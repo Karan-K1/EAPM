@@ -3,7 +3,7 @@ import os
 
 def read_flight_plan(FP_Loc:str, AC_type:str ):
     """
-    Return the DDR2 file and return  a flight plan with the listed properties.
+    Read the DDR2 file and return a flight plan with the listed properties.
 
     :param FP_loc: File path to the  flight plan
     :param AC_type: The type of aircraft such as Airbus A320 as A320, Boeing 737 as B737
@@ -108,7 +108,6 @@ def read_flight_plan(FP_Loc:str, AC_type:str ):
     'Separator4']
 
     FP = pd.read_csv(filepath_or_buffer = FP_Loc, sep = ';', names = titles, index_col=False, dtype={'SSR_CODE':'str', 'callsign': 'str'})
-    # FP = FP[['SSR_CODE', 'callsign', 'origin (ADEP)', 'destination (ADES)', 'aircraft type', 'RFL', 'iobt', 'company','type', 'date departure', 'time departure']]
 
     FP = FP[[
         'SSR_CODE',             # Will be dropped
@@ -151,21 +150,13 @@ def concat_flight_plan(FlightPlans, FlightPlanConcat, AC_type: str):
     FP.to_csv(path_or_buf = FlightPlanConcat, index=False, header=True)
     return FP
 
+if not os.path.exists('data/0-FlightPlans'):
+    os.makedirs('data/0-FlightPlans')
+
 # Create the flight plan csv file from EUROCONTROLs DDR2 dataset
 
 print("--Creating the Flight Plan file--")
-folder_year = str(input("Enter folder year (in format YYYYMM ):"))
-FP_csv = str(input("Enter the generated flight plan csv filename:"))
+folder_year = str(input("Enter folder year (in format YYYYMM) of the DDR2 to read:"))
+FP_csv = str(input("Enter the generated flight plan csv filename (e.g. FP202205):"))
 AC_type = str(input("Enter aircraft type (currently code only works for A320):"))
-# FlightPlan = concat_flight_plan("data/DDR2/" + folder_year + "/","data/DDR2/"+FP_csv+".csv", AC_type)
 FlightPlan = concat_flight_plan("data/DDR2/" + folder_year + "/","data/0-FlightPlans/"+FP_csv+".csv", AC_type)
-
-# Creating the responses/ground truth data
-# APF_value = pd.DataFrame(np.random.randint(39,77, size=(len(FP),4)))
-# APF_value.to_csv(path_or_buf = 'data/DDR2/APF202206.csv', index=False, header=['mass','v1','v2', 'mach'])
-
-# TrainAPF = APF_value.iloc[:-100]
-# TestAPF = APF_value.iloc[-100:]
-
-# TrainAPF.to_csv(path_or_buf = 'data/DDR2/TrainAPF202206.csv', index=False, header=['mass','v1','v2', 'mach'])
-# TestAPF.to_csv(path_or_buf = 'data/DDR2/TestAPF202206.csv', index=False, header=['mass','v1','v2', 'mach'])

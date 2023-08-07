@@ -83,9 +83,19 @@ def flight_extraction(start:datetime = None, end:datetime = None, icao24:str = N
         write.writerows(record_list)
 
 print("--- Initialising code ---")
+
+if not os.path.exists('data/1-Flights'):
+    os.makedirs('data/1-Flights')
+
+if not os.path.exists('data/flight_record'):
+    os.makedirs('data/flight_record')
+
+if not os.path.exists('data/flight_phase_identified'):
+    os.makedirs('data/flight_phase_identified')
+
 number = int(input("Enter an identification number (this is an arbitrary number to help you track your pre-processing):"))
 
-# The following block 
+# The following block needs to change depending on how you want to identify your flights from your flight plans.
 if number == 2:
     flight_plan_loc = "data/0-FlightPlans/NewFP202205.csv"
 elif number == 3 or number == 4:
